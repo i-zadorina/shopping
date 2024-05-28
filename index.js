@@ -27,8 +27,9 @@ const items = [
 
 const cardList = document.querySelector(".card-list__items");
 const popupElement = document.querySelector(".popup");
-const popupImage = document.querySelector(".popup__image");
 const popupCloseButton = document.querySelector(".popup__close");
+const popupImage = document.querySelector(".popup__image");
+const popupCaption = document.querySelector(".popup__caption");
 const defaultCardButton = document.querySelector(".filter__button_type_grid");
 const horizontalCardButton = document.querySelector(
   ".filter__button_type_column"
@@ -88,6 +89,14 @@ class DefaultCard extends Card {
 
     return this._element;
   }
+  _handleOpenPopup() {
+    popupCaption.textContent = this._description;
+    super._handleOpenPopup();
+  }
+  _handleClosePopup() {
+    popupCaption.textContent = "";
+    super._handleClosePopup();
+  }
 }
 
 class HorizontalCard extends Card {
@@ -126,10 +135,13 @@ const renderElements = (isGrid) => {
     cardList.append(cardElement);
   });
 };
+
 defaultCardButton.addEventListener("click", () => {
   renderElements(true);
 });
+
 horizontalCardButton.addEventListener("click", () => {
   renderElements(false);
 });
+
 renderElements();
